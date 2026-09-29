@@ -157,3 +157,35 @@
         input.addEventListener('input', () => input.classList.remove('is-error'));
       });
     })();
+
+// TABS
+    (function () {
+      const tabs = document.querySelectorAll('.tab');
+      const panels = document.querySelectorAll('.tab-panel');
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('is-active'));
+          panels.forEach(p => p.classList.remove('is-active'));
+          tab.classList.add('is-active');
+          document.getElementById('tab-' + tab.dataset.tab).classList.add('is-active');
+        });
+      });
+    })();
+
+    //  АНИМАЦИЯ ПОЯВЛЕНИЯ ПРИ СКРОЛЛЕ 
+    (function () {
+      const elements = document.querySelectorAll('.reveal');
+      if (!elements.length) return;
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      elements.forEach(el => observer.observe(el));
+    })();
